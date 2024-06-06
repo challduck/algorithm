@@ -6,18 +6,18 @@ import java.util.*;
 
 public class Main {
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         Set<Integer> set = new HashSet<>();
-        int n = sc.nextInt();
+        int n = Integer.parseInt(br.readLine());
+        String[] arr1 = br.readLine().split(" ");
         for (int i = 0; i < n; i++) {
-            int num = sc.nextInt();
-            set.add(num);
+            set.add(Integer.parseInt(arr1[i]));
         }
-        int m = sc.nextInt();
+        int m = Integer.parseInt(br.readLine());
+        String[] arr2 = br.readLine().split(" ");
         for (int i = 0; i < m; i++) {
-            int num = sc.nextInt();
-            System.out.println(set.contains(num) ? 1 : 0);
+            System.out.println(set.contains(Integer.parseInt(arr2[i])) ? 1 : 0);
         }
     }
 }
