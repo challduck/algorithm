@@ -6,25 +6,29 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
+
         int n = Integer.parseInt(br.readLine());
-        int m = 0;
-        while (true) {
-            String num_str = Integer.toString(m);
-            int sum = m;
-            for (int i = 0; i < num_str.length(); i++) {
-                sum += Character.getNumericValue(num_str.charAt(i));
+
+        boolean flag = false;
+        for (int i = 0; i < n; i++) {
+            String str = Integer.toString(i);
+            int sum = i;
+
+            for (int j = 0; j < str.length(); j++) {
+                sum += Character.getNumericValue(str.charAt(j));
             }
 
-            if (n == sum) {
-                break;
-            } else if (m > n) {
-                m = 0;
-                break;
-            } else {
-                m++;
+            if (sum == n) {
+                flag = true;
+                System.out.println(str);
+                return;
             }
         }
-        System.out.println(m);
-    }
 
+        if (!flag) {
+            System.out.println(0);
+        }
+
+    }
 }
