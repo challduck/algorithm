@@ -7,33 +7,43 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
         int n = Integer.parseInt(br.readLine());
-        String[][] arr = new String[n][2];
+        List<Person> list = new ArrayList<>();
 
         for (int i = 0; i < n; i++) {
             StringTokenizer st = new StringTokenizer(br.readLine());
-            String age = (st.nextToken());
+            int age = Integer.parseInt(st.nextToken());
             String name = st.nextToken();
-
-            arr[i][0] = age;
-            arr[i][1] = name;
-
+            list.add(new Person(age, i, name));
         }
 
-        
-        Arrays.sort(arr, new Comparator<String[]>() {
+        Collections.sort(list, new Comparator<Person>() {
             @Override
-            public int compare(String[] o1, String[] o2){
-                
-                return Integer.parseInt(o1[0]) - Integer.parseInt(o2[0]);
+            public int compare(Person o1, Person o2) {
+                if (o1.age == o2.age) {
+                    return o1.sequence - o2.sequence;
+                }
+                return o1.age - o2.age;
             }
         });
-        StringBuilder sb = new StringBuilder();
-
-        for (String[] strings : arr) {
-            sb.append(strings[0]).append(" ").append(strings[1]).append("\n");
+        for (Person person : list) {
+            sb.append(person.age).append(" ").append(person.name).append("\n");
         }
-        System.out.println(sb.deleteCharAt(sb.length()-1));
-    }
 
+        System.out.println(sb);
+
+    }
+}
+
+class Person {
+    int age;
+    int sequence;
+    String name;
+
+    public Person(int age, int sequence, String name) {
+        this.age = age;
+        this.sequence = sequence;
+        this.name = name;
+    }
 }
