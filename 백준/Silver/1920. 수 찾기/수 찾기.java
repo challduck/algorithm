@@ -9,22 +9,22 @@ public class Main {
         StringBuilder sb = new StringBuilder();
 
         int n = Integer.parseInt(br.readLine());
-        Map<Integer, Integer> map = new HashMap<>();
+        Set<Integer> set = new HashSet<>();
 
         StringTokenizer st = new StringTokenizer(br.readLine());
         for (int i = 0; i < n; i++) {
-            int a = Integer.parseInt(st.nextToken());
-            map.put(a, map.getOrDefault(a, 0) + 1);
+            set.add(Integer.parseInt(st.nextToken()));
         }
 
         int m = Integer.parseInt(br.readLine());
+
         st = new StringTokenizer(br.readLine());
+
         for (int i = 0; i < m; i++) {
-            if (map.containsKey(Integer.parseInt(st.nextToken()))) {
+            if (set.contains(Integer.parseInt(st.nextToken())))
                 sb.append(1).append("\n");
-            } else {
+            else 
                 sb.append(0).append("\n");
-            }
         }
 
         System.out.println(sb);
