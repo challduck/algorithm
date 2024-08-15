@@ -4,7 +4,6 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 public class Main {
-
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
@@ -14,23 +13,14 @@ public class Main {
             queue.add(i);
         }
 
-        int card = 0;
         while (true) {
-
             if (queue.size() == 1) {
-                card = queue.poll();
+                System.out.println(queue.poll());
                 break;
-            } else {
-                queue.poll();
-                if (queue.size() == 1) {
-                    card = queue.poll();
-                    break;
-                } else {
-                    queue.add(queue.poll());
-                }
             }
-        }
-        System.out.println(card);
 
+            queue.poll();
+            queue.add(queue.poll());
+        }
     }
 }
