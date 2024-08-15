@@ -6,21 +6,19 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int n = Integer.parseInt(br.readLine());
-        Queue<Integer> queue = new LinkedList<>();
+        int N = Integer.parseInt(br.readLine());
 
-        for (int i = 1; i <= n; i++) {
-            queue.add(i);
+        int L = 1;
+        while (L <= N) {
+            L *= 2;
+        }
+        L /= 2;
+
+        int result = 2 * (N - L);
+        if (result == 0) {
+            result = L;
         }
 
-        while (true) {
-            if (queue.size() == 1) {
-                System.out.println(queue.poll());
-                break;
-            }
-
-            queue.poll();
-            queue.add(queue.poll());
-        }
+        System.out.println(result);
     }
 }
