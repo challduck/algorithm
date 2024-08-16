@@ -24,8 +24,9 @@ public class Main {
                 stack.pop();
                 sb.append("-").append("\n");
             } else {
-                System.out.println("NO");
-                System.exit(0);
+                sb = new StringBuilder();
+                sb.append("NO");
+                break;
             }
         }
         System.out.println(sb);
