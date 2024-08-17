@@ -4,7 +4,7 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 public class Main {
-
+    static Stack<Character> stack;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
@@ -18,7 +18,7 @@ public class Main {
     }
 
     private static boolean isBalanced(String str) {
-        Stack<Character> stack = new Stack<>();
+        stack = new Stack<>();
         for (char ch : str.toCharArray()) {
             if (ch == '(' || ch == '[') {
                 stack.push(ch);
