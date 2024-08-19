@@ -4,22 +4,24 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 public class Main {
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
         Stack<Integer> stack = new Stack<>();
-        int sum = 0;
 
         for (int i = 0; i < n; i++) {
-            String num_str = br.readLine();
-
-            if (num_str.equals("0")) {
-                int a = stack.pop();
-                sum -= a;
+            String str = br.readLine();
+            if (str.equals("0") && !stack.isEmpty()) {
+                stack.pop();
             } else {
-                sum += Integer.parseInt(num_str);
-                stack.push(Integer.parseInt(num_str));
+                stack.add(Integer.parseInt(str));
             }
+        }
+
+        int sum = 0;
+        while (!stack.isEmpty()) {
+            sum += stack.pop();
         }
         System.out.println(sum);
     }
