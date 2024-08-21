@@ -7,13 +7,15 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
-        int n = Integer.parseInt(br.readLine());
-        StringTokenizer st = new StringTokenizer(br.readLine());
         Stack<Integer> stack = new Stack<>();
-
-        int[] top = new int[n];
+        int n = Integer.parseInt(br.readLine());
         int[] arr = new int[n];
+        int[] top = new int[n];
+
         Map<Integer, Integer> map = new HashMap<>();
+
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
         for (int i = 0; i < n; i++) {
             int a = Integer.parseInt(st.nextToken());
             arr[i] = a;
@@ -29,12 +31,11 @@ public class Main {
             }
             stack.push(arr[i]);
         }
-
         for (int i : top) {
-            if (!map.containsKey(i)) {
-                sb.append(0).append(" ");
-            } else {
+            if (map.containsKey(i)) {
                 sb.append(map.get(i)).append(" ");
+            } else {
+                sb.append(0).append(" ");
             }
         }
         System.out.println(sb);
