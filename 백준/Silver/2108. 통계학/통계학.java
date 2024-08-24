@@ -7,49 +7,47 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
         int n = Integer.parseInt(br.readLine());
+
+        int average = 0;
         int[] arr = new int[n];
-        int[] count = new int[8001];
-        int num1 = 0;
-        int num2 = 0;
-        int num3 = 0;
+        List<Integer> list = new ArrayList<>();
+        int[] countArr = new int[8001];
 
         for (int i = 0; i < n; i++) {
-            int a = Integer.parseInt(br.readLine());
-            arr[i] = a;
-            num1 += a;
-            count[a + 4000]++;
+            int num = Integer.parseInt(br.readLine());
+            arr[i] = num;
+            countArr[num + 4000]++;
+            average += num;
         }
-
         Arrays.sort(arr);
-        num2 = arr[n / 2];
+
+        int centerValue = arr[n / 2];
 
         int maxCount = 0;
-        List<Integer> modes = new ArrayList<>();
-
-        for (int i = 0; i < count.length; i++) {
-            if (count[i] > maxCount) {
-                maxCount = count[i];
-                modes.clear();
-                modes.add(i - 4000);
-            } else if (count[i] == maxCount) {
-                modes.add(i - 4000);
+        for (int i = 0; i < countArr.length; i++) {
+            if (countArr[i] > maxCount) {
+                maxCount = countArr[i];
+                list.clear();
+                list.add(i - 4000);
+            } else if (countArr[i] == maxCount) {
+                list.add(i - 4000);
             }
         }
 
-        if (modes.size() > 1) {
-            Collections.sort(modes);
-            num3 = modes.get(1);
+        int mode = 0;
+        if (list.size() == 1) {
+            mode = list.get(0);
         } else {
-            num3 = modes.get(0);
+            Collections.sort(list);
+            mode = list.get(1);
         }
 
-        sb.append(Math.round(num1 / (double) n)).append("\n");
-        sb.append(num2).append("\n");
-        sb.append(num3).append("\n");
-        sb.append(Math.max(Math.abs(arr[n - 1] - arr[0]), Math.abs(arr[0] - arr[n - 1])));
-        System.out.println(sb);
+        int range = Math.max(Math.abs(arr[0] - arr[arr.length - 1]), Math.abs(arr[arr.length - 1] - arr[0]));
 
+        System.out.println(Math.round(average / (double) n));
+        System.out.println(centerValue);
+        System.out.println(mode);
+        System.out.println(range);
     }
 }
