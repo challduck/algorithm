@@ -1,42 +1,47 @@
-import java.util.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.*;
 
 public class Main {
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
         StringTokenizer st = new StringTokenizer(br.readLine());
         int k = Integer.parseInt(st.nextToken());
         int n = Integer.parseInt(st.nextToken());
+        int[] arr = new int[k];
 
-        int[] lan_cable = new int[k];
-        int max_cable = 0;
+        int maxLen = Integer.MIN_VALUE;
+
         for (int i = 0; i < k; i++) {
-            int cable = Integer.parseInt(br.readLine());
-            lan_cable[i] = cable;
-            max_cable = Math.max(max_cable, cable);
+            arr[i] = Integer.parseInt(br.readLine());
+            maxLen = Math.max(arr[i], maxLen);
         }
-        
+
+        System.out.println(binarySearch(arr, maxLen, n));
+    }
+
+    static long binarySearch(int[] arr, int maxLen, int target) {
         long start = 1;
-        long end = max_cable;
-        long result = 0;
+        long end = maxLen;
+        long res = 0;
+
         while (start <= end) {
             long mid = (start + end) / 2;
             long cnt = 0;
-
-            for (int i : lan_cable) {
+            for (int i : arr) {
                 cnt += i / mid;
             }
 
-            if (cnt >= n) {
-                result = mid;
+            if (cnt >= target){
+                res = mid;
                 start = mid + 1;
             } else {
                 end = mid - 1;
             }
         }
-        System.out.println(result);
+
+        return res;
     }
 }
