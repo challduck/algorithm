@@ -4,37 +4,33 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 public class Main {
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int M = Integer.parseInt(br.readLine());
+        int n = Integer.parseInt(br.readLine());
+        StringTokenizer st;
         Set<Integer> set = new HashSet<>();
         StringBuilder sb = new StringBuilder();
 
-        for (int i = 0; i < M; i++) {
-            StringTokenizer st = new StringTokenizer(br.readLine());
+        for (int i = 0; i < n; i++) {
+            st = new StringTokenizer(br.readLine());
             String command = st.nextToken();
             if (command.equals("add")) {
                 set.add(Integer.parseInt(st.nextToken()));
             } else if (command.equals("remove")) {
-                int target = Integer.parseInt(st.nextToken());
-                if (set.contains(target)) {
-                    set.remove(target);
-                } else {
-                    continue;
-                }
+                set.remove(Integer.parseInt(st.nextToken()));
             } else if (command.equals("check")) {
-                int target = Integer.parseInt(st.nextToken());
-                if (set.contains(target)) {
+                if (set.contains(Integer.parseInt(st.nextToken()))) {
                     sb.append(1).append("\n");
                 } else {
                     sb.append(0).append("\n");
                 }
             } else if (command.equals("toggle")) {
-                int target = Integer.parseInt(st.nextToken());
-                if (set.contains(target)) {
-                    set.remove(target);
+                int num = Integer.parseInt(st.nextToken());
+                if (set.contains(num)) {
+                    set.remove(num);
                 } else {
-                    set.add(target);
+                    set.add(num);
                 }
             } else if (command.equals("all")) {
                 for (int j = 1; j <= 20; j++) {
@@ -44,8 +40,6 @@ public class Main {
                 set.clear();
             }
         }
-        if (sb.length() != 0) {
-            System.out.println(sb.deleteCharAt(sb.length() - 1));
-        }
+        System.out.println(sb);
     }
 }
