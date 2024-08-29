@@ -1,42 +1,37 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.*;
-
-public class Main {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+import java.io.BufferedReader;  
+import java.io.IOException;  
+import java.io.InputStreamReader;  
+import java.util.*;  
+  
+public class Main {  
+    public static void main(String[] args) throws IOException {  
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));  
         StringTokenizer st = new StringTokenizer(br.readLine());
         int n = Integer.parseInt(st.nextToken());
         int m = Integer.parseInt(st.nextToken());
-
         Map<String, Integer> map = new HashMap<>();
-        List<String> list = new ArrayList<>();
-        list.add("first");
+        Map<Integer, String> map2 = new HashMap<>();
 
         for (int i = 1; i <= n; i++) {
-            st = new StringTokenizer(br.readLine());
-            String str = st.nextToken();
-
+            String str = br.readLine();
             map.put(str, i);
-            list.add(str);
+            map2.put(i, str);
         }
 
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < m; i++) {
-            st = new StringTokenizer(br.readLine());
-            String str = st.nextToken();
+            String str = br.readLine();
             if (isNum(str)) {
-                sb.append(list.get(Integer.parseInt(str))).append("\n");
+                sb.append(map2.get(Integer.parseInt(str))).append("\n");
             } else {
                 sb.append(map.get(str)).append("\n");
             }
         }
-        System.out.println(sb.deleteCharAt(sb.length() - 1));
 
-    }
+        System.out.println(sb);
+    }  
 
-    public static boolean isNum(String str) {
+    static boolean isNum (String str){
         try {
             Integer.parseInt(str);
             return true;
