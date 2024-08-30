@@ -1,34 +1,38 @@
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.IOException;
-
+import java.io.InputStreamReader;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main {
 
-    public static void main(String args[]) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        String[] a_num = reader.readLine().split(" ");
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
         Map<String, Integer> map = new HashMap<>();
-        int cnt = 0;
-        for (int i = 0; i < Integer.parseInt(a_num[0]); i++) {
-            String unheard = reader.readLine();
-            map.put(unheard, 0);
+
+        for (int i = 0; i < n; i++) {
+            map.put(br.readLine(), 1);
         }
 
-        for (int i = 0; i < Integer.parseInt(a_num[1]); i++) {
-            String unsee = reader.readLine();
-            if (map.get(unsee) != null) {
-                map.put(unsee, map.get(unsee) + 1);
-                cnt++;
-            }
+        for (int i = 0; i < m; i++) {
+            String key = br.readLine();
+            map.put(key, map.getOrDefault(key, 0) + 1);
         }
-        System.out.println(cnt);
-        TreeMap<String, Integer> treeMap = new TreeMap<>(map);
-        for (Map.Entry<String, Integer> entry : treeMap.entrySet()) {
-            if (entry.getValue() >= 1) {
-                System.out.println(entry.getKey());
-            }
+
+        List<String> list = map.entrySet()
+                .stream()
+                .filter(entry -> entry.getValue() == 2)
+                .map(Map.Entry::getKey)
+                .sorted((a, b) -> a.compareTo(b))
+                .collect(Collectors.toList());
+        StringBuilder sb = new StringBuilder();
+        sb.append(list.size()).append("\n");
+        for (String str : list) {
+            sb.append(str).append("\n");
         }
+        System.out.println(sb);
     }
 }
