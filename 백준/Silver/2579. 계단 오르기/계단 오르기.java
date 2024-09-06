@@ -1,32 +1,32 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.*;
+import java.io.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
-        int[] score = new int[n];
+        int[] step = new int[n];
         for (int i = 0; i < n; i++) {
-            score[i] = Integer.parseInt(br.readLine());
+            step[i] = Integer.parseInt(br.readLine());
         }
 
+        int[] dp = new int[n + 1];
+
         if (n == 1) {
-            System.out.println(score[0]);
+            System.out.println(step[0]);
             return;
         }
 
-        int[] dp = new int[n];
-        dp[0] = score[0];
-        dp[1] = score[0] + score[1];
+        dp[0] = step[0];
+        dp[1] = step[0] + step[1];
 
         if (n > 2) {
-            dp[2] = Math.max(score[0] + score[2], score[1] + score[2]);
+            dp[2] = Math.max(step[1] + step[2], step[0] + step[2]);
+
             for (int i = 3; i < n; i++) {
-                dp[i] = Math.max(dp[i - 2], dp[i - 3] + score[i - 1]) + score[i];
+                dp[i] = Math.max(dp[i - 3] + step[i - 1], dp[i - 2]) + step[i];
             }
         }
+
         System.out.println(dp[n - 1]);
     }
 }
