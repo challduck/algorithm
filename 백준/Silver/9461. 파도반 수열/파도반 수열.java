@@ -4,14 +4,14 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 public class Main {
+
     static long[] dp = new long[101];
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int t = Integer.parseInt(br.readLine());
-        StringBuilder sb = new StringBuilder();
         dp();
-
+        StringBuilder sb = new StringBuilder();
+        int t = Integer.parseInt(br.readLine());
         for (int i = 0; i < t; i++) {
             int n = Integer.parseInt(br.readLine());
             sb.append(dp[n]).append("\n");
@@ -26,8 +26,9 @@ public class Main {
         dp[4] = 2;
         dp[5] = 2;
 
-        for (int i = 6; i < dp.length; i++) {
-            dp[i] = dp[i - 1] + dp[i - 5];
+        for (int i = 6; i <= 100; i++) {
+            dp[i] = dp[i - 3] + dp[i - 4] + dp[i - 5];
         }
     }
+
 }
