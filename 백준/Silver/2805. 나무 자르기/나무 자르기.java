@@ -4,42 +4,45 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 public class Main {
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
         int n = Integer.parseInt(st.nextToken());
-        long m = Long.parseLong(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
         int[] arr = new int[n];
 
         st = new StringTokenizer(br.readLine());
-        int max = 0;
+        long start = 0;
+        long end = 0;
         for (int i = 0; i < n; i++) {
-            arr[i] = Integer.parseInt(st.nextToken());
-            if (max < arr[i]) {
-                max = arr[i];
-            }
+            int a = Integer.parseInt(st.nextToken());
+            arr[i] = a;
+            end = Math.max(end, a);
         }
-        long min_height = 0;
-        long max_height = max;
-        long res = 0;
-
-        while (min_height <= max_height) {
-            long mid = (min_height + max_height) / 2;
-            long total = 0;
-            for (int i : arr) {
-                if (i > mid) {
-                    total += i - mid;
-                }
-            }
-            if (total >= m) {
-                res = mid;
-                min_height = mid + 1;
-            } else {
-                max_height = mid - 1;
-            }
-        }
-
-        System.out.println(res);
+        System.out.println(binarySearch(m, arr, start, end));
     }
 
+    private static long binarySearch(int m, int[] arr, long start, long end) {
+        long answer = 0;
+
+        while (start <= end) {
+            long mid = (start + end) / 2;
+            long temp = 0;
+
+            for (int i = 0; i < arr.length; i++) {
+                if (arr[i] > mid) {
+                    temp += arr[i] - mid;
+                }
+            }
+
+            if (temp >= m) {
+                answer = mid;
+                start = mid + 1;
+            } else {
+                end = mid - 1;
+            }
+        }
+        return answer;
+    }
 }
