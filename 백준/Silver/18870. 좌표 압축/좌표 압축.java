@@ -6,28 +6,37 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
         int n = Integer.parseInt(br.readLine());
-
         StringTokenizer st = new StringTokenizer(br.readLine());
-        int[] coordinates = new int[n];
+        int[] sortedArr = new int[n];
+        int[] arr = new int[n];
+        Map<Integer, Integer> map = new HashMap<>();
+
+        // 2 4 -10 4 -9
         for (int i = 0; i < n; i++) {
-            coordinates[i] = Integer.parseInt(st.nextToken());
+            int x = Integer.parseInt(st.nextToken());
+            sortedArr[i] = x;
+            arr[i] = x;
         }
 
-        int[] sort_coordinates = coordinates.clone();
-        Arrays.sort(sort_coordinates);
-
-        Map<Integer, Integer> map = new HashMap<>();
-        int rank = 0;
-        for (int i = 0; i < sort_coordinates.length; i++) {
-            if (!map.containsKey(sort_coordinates[i])) {
-                map.put(sort_coordinates[i], rank++);
+        // -10 -9 2 4 4
+        // 0 1 2 3 3
+        Arrays.sort(sortedArr);
+        int idx = 0;
+        for (int i = 0; i < sortedArr.length; i++) {
+            int key = sortedArr[i];
+            if (!map.containsKey(key)) {
+                map.put(key, idx);
+                idx++;
             }
         }
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < n; i++) {
-            sb.append(map.get(coordinates[i])).append(" ");
+
+        for (int i = 0; i < arr.length; i++) {
+            int key = arr[i];
+            sb.append(map.get(key)).append(" ");
         }
-        System.out.println(sb.toString().trim());
+
+        System.out.println(sb);
     }
 }
