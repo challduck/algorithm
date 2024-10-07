@@ -8,22 +8,21 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
         int m = Integer.parseInt(br.readLine());
-        String target = "I" + "OI".repeat(n);
         String s = br.readLine();
-        int cnt = 0;
 
-        for (int i = 0; i < m; i++) {
-            boolean flag = true;
-            for (int j = 0; j < target.length(); j++) {
-                if (i + j < m && target.charAt(j) == s.charAt(i + j)) {
-                    continue;
-                } else {
-                    flag = false;
-                    break;
+        int cnt = 0;
+        int patternCount = 0;
+
+        for (int i = 1; i < m - 1; i++) {
+            if (s.charAt(i - 1) == 'I' && s.charAt(i) == 'O' && s.charAt(i + 1) == 'I') {
+                patternCount++;
+                if (patternCount == n) {
+                    cnt++;
+                    patternCount--;
                 }
-            }
-            if (flag) {
-                cnt++;
+                i++;
+            } else {
+                patternCount = 0;
             }
         }
         System.out.println(cnt);
