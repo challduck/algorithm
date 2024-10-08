@@ -6,27 +6,40 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int n = Integer.parseInt(br.readLine());
-        
-        Comparator<Integer> comparator = new Comparator<Integer>() {
+        PriorityQueue<Absolute> pq = new PriorityQueue<>(new Comparator<Absolute>() {
             @Override
-            public int compare(Integer o1, Integer o2) {
-                int absCompare = Integer.compare(Math.abs(o1), Math.abs(o2));
-                if (absCompare == 0) {
-                    return Integer.compare(o1, o2);
+            public int compare(Absolute o1, Absolute o2) {
+                if (o1.abs == o2.abs) {
+                    return o1.x - o2.x;
                 }
-                return absCompare;
+                return o1.abs - o2.abs;
             }
-        };
+        });
+        int n = Integer.parseInt(br.readLine());
+        StringBuilder sb = new StringBuilder();
 
-        PriorityQueue<Integer> pq = new PriorityQueue<>(comparator);
         for (int i = 0; i < n; i++) {
-            int x = Integer.parseInt(br.readLine());
-            if (x == 0) {
-                System.out.println(pq.isEmpty() ? 0 : pq.poll());
+            int a = Integer.parseInt(br.readLine());
+            if (a != 0) {
+                pq.offer(new Absolute(a, Math.abs(a)));
             } else {
-                pq.add(x);
+                if (pq.isEmpty()) {
+                    sb.append(0).append("\n");
+                } else {
+                    sb.append(pq.poll().x).append("\n");
+                }
             }
         }
+        System.out.println(sb);
+    }
+}
+
+class Absolute {
+    int x;
+    int abs;
+
+    public Absolute(int x, int abs) {
+        this.x = x;
+        this.abs = abs;
     }
 }
