@@ -1,30 +1,35 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
+import java.util.*;
+
 public class Main {
+    static int n, m;
+    static StringBuilder sb;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String[] num = br.readLine().split(" ");
-        int n = Integer.parseInt(num[0]);
-        int m = Integer.parseInt(num[1]);
-
-        int[] arr = new int[m];
-        sequence(n,m,1,0,arr);
-
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        sb = new StringBuilder();
+        n = Integer.parseInt(st.nextToken());
+        m = Integer.parseInt(st.nextToken());
+        recur(1, 0, new int[m]);
+        System.out.print(sb);
     }
-    public static void sequence(int N, int M, int start, int depth, int[] selected) {
-        if (depth == M) {
-            for (int i = 0; i < M; i++) {
-                System.out.print(selected[i] + " ");
+
+    private static void recur(int start, int depth, int[] arr) {
+        if (depth == m) {
+            for (int i = 0; i < arr.length; i++) {
+                sb.append(arr[i]).append(" ");
+
             }
-            System.out.println();
+            sb.append("\n");
             return;
         }
-        
-        for (int i = start; i <= N; i++) {
-            selected[depth] = i;
-            sequence(N, M, i + 1, depth + 1, selected);
+
+        for (int i = start; i <= n; i++) {
+            arr[depth] = i;
+            recur(i + 1, depth + 1, arr);
         }
     }
 }
