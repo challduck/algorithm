@@ -10,32 +10,25 @@ public class Main {
     }
 
     private static String solution(String str) {
-        Stack<Character> stack = new Stack<>();
-        Queue<Character> queue = new LinkedList<>();
         StringBuilder sb = new StringBuilder();
+        Stack<Character> stack = new Stack<>();
 
-        boolean flag = false;
         for (int i = 0; i < str.length(); i++) {
-
             if (str.charAt(i) == '<') {
                 while (!stack.isEmpty()) {
                     sb.append(stack.pop());
                 }
-                flag = true;
-            } else if (str.charAt(i) == '>') {
-                flag = false;
-                queue.add(str.charAt(i));
-                while (!queue.isEmpty()) {
-                    sb.append(queue.poll());
+                while (true) {
+                    if (str.charAt(i) == '>') {
+                        sb.append(str.charAt(i));
+                        break;
+                    }
+
+                    sb.append(str.charAt(i));
+                    i++;
                 }
                 continue;
             }
-
-            if (flag) {
-                queue.add(str.charAt(i));
-                continue;
-            }
-
             if (str.charAt(i) == ' ') {
                 while (!stack.isEmpty()) {
                     sb.append(stack.pop());
@@ -45,6 +38,7 @@ public class Main {
                 stack.add(str.charAt(i));
             }
         }
+
         while (!stack.isEmpty()) {
             sb.append(stack.pop());
         }
