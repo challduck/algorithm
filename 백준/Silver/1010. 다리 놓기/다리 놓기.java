@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.math.BigInteger;
 import java.util.*;
 
 public class Main {
@@ -19,19 +18,23 @@ public class Main {
     }
 
     private static int combination(int n, int r) {
-        /*
-         * n! / (n - r)!r!
-         */
-
-        return factorial(n).divide(factorial(n - r).multiply(factorial(r))).intValue();
-
-    }
-
-    private static BigInteger factorial(int n) {
-        BigInteger num = BigInteger.valueOf(1);
-        for (long i = 2; i <= n; i++) {
-            num = num.multiply(BigInteger.valueOf(i));
+        if (r == n) {
+            return 1;
         }
-        return num;
+
+        int[][] dp = new int[n + 1][r + 1];
+
+        for (int i = 0; i <= n; i++) {
+            dp[i][0] = 1;
+            dp[i][Math.min(r, i)] = 1;
+        }
+
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= Math.min(i, r); j++) {
+                dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j];
+            }
+        }
+
+        return dp[n][r];
     }
 }
