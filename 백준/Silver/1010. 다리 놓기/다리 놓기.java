@@ -5,24 +5,32 @@ import java.math.BigInteger;
 import java.util.*;
 
 public class Main {
-    static StringBuilder sb;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
         int t = Integer.parseInt(br.readLine());
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < t; i++) {
             StringTokenizer st = new StringTokenizer(br.readLine());
-            int m = Integer.parseInt(st.nextToken());
             int n = Integer.parseInt(st.nextToken());
-            sb.append(factorial(n).divide(factorial(n - m).multiply(factorial(m)))).append("\n");
+            int m = Integer.parseInt(st.nextToken());
+            sb.append(combination(m, n)).append("\n");
         }
-        System.out.print(sb);
+        System.out.print(sb.toString());
     }
 
-    private static BigInteger factorial(int n){
-        BigInteger num = new BigInteger("1");
-        for (int i = 2; i <= n; i++) {
-            num = num.multiply(new BigInteger(Integer.toString(i)));
+    private static int combination(int n, int r) {
+        /*
+         * n! / (n - r)!r!
+         */
+
+        return factorial(n).divide(factorial(n - r).multiply(factorial(r))).intValue();
+
+    }
+
+    private static BigInteger factorial(int n) {
+        BigInteger num = BigInteger.valueOf(1);
+        for (long i = 2; i <= n; i++) {
+            num = num.multiply(BigInteger.valueOf(i));
         }
         return num;
     }
