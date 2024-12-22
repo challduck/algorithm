@@ -4,7 +4,6 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 public class Main {
-
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
@@ -15,39 +14,49 @@ public class Main {
 
         for (int i = 0; i < n; i++) {
             st = new StringTokenizer(br.readLine());
-            int s = Integer.parseInt(st.nextToken());
-            int I = Integer.parseInt(st.nextToken());
-            int c = Integer.parseInt(st.nextToken());
+            int start = Integer.parseInt(st.nextToken());
+            int Interval = Integer.parseInt(st.nextToken());
+            int count = Integer.parseInt(st.nextToken());
 
-            if (t == s) {
+            if (start == t) {
                 System.out.println(0);
-                System.exit(0);
+                return;
             }
-            int waiting = binarySearch(s, I, c, t);
-            if (waiting != -1) {
+
+            if (start + (Interval * count) < t) {
+                continue;
+            }
+
+            int[] bus = new int[count];
+
+            for (int j = 0; j < count; j++) {
+                bus[j] = start + (Interval * j);
+            }
+
+            int time = binarySearch(bus, t);
+            if (time != -1) {
                 flag = true;
-                answer = Math.min(answer, waiting);
+                answer = Math.min(answer, time);
             }
         }
         System.out.println(flag ? answer : -1);
     }
 
-    private static int binarySearch(int s, int i, int c, int t) {
+    private static int binarySearch(int[] arr, int t) {
         int left = 0;
-        int right = c - 1;
+        int right = arr.length - 1;
 
         int res = -1;
         while (left <= right) {
             int mid = (left + right) / 2;
-            int busTime = s + (mid * i);
-
-            if (busTime >= t) {
-                res = busTime;
+            if (arr[mid] >= t) {
+                res = arr[mid];
                 right = mid - 1;
             } else {
                 left = mid + 1;
             }
         }
+
         return res == -1 ? -1 : res - t;
     }
 }
