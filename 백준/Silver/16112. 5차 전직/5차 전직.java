@@ -18,19 +18,14 @@ public class Main {
         }
 
         Arrays.sort(arr);
-        BigInteger sum = BigInteger.valueOf(0);
-
+        long sum = 0;
         for (int i = 1; i < n; i++) {
-            BigInteger temp = BigInteger.valueOf(0);
             if (i > k) {
-                temp = temp.add(BigInteger.valueOf((long) (arr[i])).multiply(BigInteger.valueOf((long) k)));
+                sum += (long) arr[i] * (long) k;
             } else {
-                temp = temp.add(BigInteger.valueOf((long) (arr[i])).multiply(BigInteger.valueOf((long) i)));
+                sum += (long) arr[i] * (long) i;
             }
-            sum = sum.add(temp);
         }
-
-        System.out.println(sum.toString());
-
+        System.out.println(sum);
     }
 }
