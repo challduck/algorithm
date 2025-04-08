@@ -1,27 +1,24 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.*;
 
 public class Main {
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
-        int[][] questions = new int[n][3];
-        
+        int[][] arr = new int[n][3];
+
         for (int i = 0; i < n; i++) {
+
             StringTokenizer st = new StringTokenizer(br.readLine());
-            int num = Integer.parseInt(st.nextToken());
-            int ball = Integer.parseInt(st.nextToken());
-            int strike = Integer.parseInt(st.nextToken());
-            questions[i][0] = num;
-            questions[i][1] = ball;
-            questions[i][2] = strike;
+            arr[i][0] = Integer.parseInt(st.nextToken());
+            arr[i][1] = Integer.parseInt(st.nextToken());
+            arr[i][2] = Integer.parseInt(st.nextToken());
         }
 
         int answer = 0;
 
-        List<int[]> possibleNumbers = new ArrayList<>();
+        List<int[]> list = new ArrayList<>();
 
         for (int i = 123; i <= 987; i++) {
             int hundreds = i / 100;
@@ -29,50 +26,49 @@ public class Main {
             int units = i % 10;
 
             if (hundreds != tens && tens != units && hundreds != units && hundreds != 0 && tens != 0 && units != 0) {
-                possibleNumbers.add(new int[] { hundreds, tens, units });
+                list.add(new int[] { hundreds, tens, units });
             }
         }
 
-        for (int[] num : possibleNumbers) {
-            boolean isValid = true;
+        for (int[] num : list) {
+            boolean flag = true;
 
             for (int j = 0; j < n; j++) {
-                int guess = questions[j][0];
-                int strike = questions[j][1];
-                int ball = questions[j][2];
+                int guess = arr[j][0];
+                int strike = arr[j][1];
+                int ball = arr[j][2];
 
-                int guessHundreds = guess / 100;
-                int guessTens = (guess / 10) % 10;
-                int guessUnits = guess % 10;
+                int hundred = guess / 100;
+                int ten = (guess / 10) % 10;
+                int unit = guess % 10;
 
-                int strikeCount = 0;
-                int ballCount = 0;
+                int strikeCnt = 0;
+                int ballCnt = 0;
 
-                if (num[0] == guessHundreds)
-                    strikeCount++;
-                if (num[1] == guessTens)
-                    strikeCount++;
-                if (num[2] == guessUnits)
-                    strikeCount++;
+                if (num[0] == hundred)
+                    strikeCnt++;
+                if (num[1] == ten)
+                    strikeCnt++;
+                if (num[2] == unit)
+                    strikeCnt++;
 
-                if (num[0] == guessTens || num[0] == guessUnits)
-                    ballCount++;
-                if (num[1] == guessHundreds || num[1] == guessUnits)
-                    ballCount++;
-                if (num[2] == guessHundreds || num[2] == guessTens)
-                    ballCount++;
+                if (num[0] == ten || num[0] == unit)
+                    ballCnt++;
+                if (num[1] == hundred || num[1] == unit)
+                    ballCnt++;
+                if (num[2] == hundred || num[2] == ten)
+                    ballCnt++;
 
-                if (strikeCount != strike || ballCount != ball) {
-                    isValid = false;
+                if (strikeCnt != strike || ballCnt != ball) {
+                    flag = false;
                     break;
                 }
             }
 
-            if (isValid) {
+            if (flag) {
                 answer++;
             }
         }
-
         System.out.println(answer);
     }
 }
